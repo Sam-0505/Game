@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 
 import CanvasContext from "./canvasContext";
 import { MAP_DIMENSIONS, TILE_SIZE, MOVE_DIRECTIONS } from "./constants";
-import { move } from "./slices/characterSlice";
+import { move, teleport } from "./slices/characterSlice";
 import { checkMapCollision } from "./utils";
 
-const mapDispatch = { move };
+const mapDispatch = { move, teleport };
 const mapStateToProps = ({ character }) => ({ character });
 
-const GameLoop = ({ children, character, move }) => {
+const GameLoop = ({ children, character, move, teleport }) => {
   const canvasRef = useRef(null);
   const [ctx, setCtx] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
@@ -21,15 +21,19 @@ const GameLoop = ({ children, character, move }) => {
   const moveCharacter = useCallback(
     (e) => {
       const key = e.key;
+
       if (MOVE_DIRECTIONS[key]) {
         const [x, y] = MOVE_DIRECTIONS[key];
         if (!checkMapCollision(character.x + x, character.y + y)) {
           setIsUpdateRequired(true);
           move([x, y]);
         }
+      } else if (key == " ") {
+        setIsUpdateRequired(true);
+        teleport();
       }
     },
-    [move, character.x, character.y]
+    [move, character.x, character.y, teleport, character.teleportMode]
   );
 
   const tick = useCallback(() => {

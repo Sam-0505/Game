@@ -10,6 +10,8 @@ import { loadCharacter } from "./slices/statusSlice";
 const Character = ({
   x,
   y,
+  tx,
+  ty,
   heroClass,
   heroImg,
   loadCharacter,
@@ -32,6 +34,20 @@ const Character = ({
         HERO_IMAGE_SIZE,
         HERO_IMAGE_SIZE
       );
+
+      if (tx != x || ty != y) {
+        ctx.drawImage(
+          document.querySelector(heroImg),
+          sx,
+          sy,
+          HERO_IMAGE_SIZE - 5,
+          HERO_IMAGE_SIZE - 5,
+          tx * TILE_SIZE,
+          ty * TILE_SIZE,
+          HERO_IMAGE_SIZE,
+          HERO_IMAGE_SIZE
+        );
+      }
       loadCharacter(true);
     }
   }, [ctx, heroClass, heroImg, x, y, loadCharacter]);
