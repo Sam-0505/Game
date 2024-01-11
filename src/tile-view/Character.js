@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import CanvasConext from "./canvasContext";
 import { HEROES_SPRITE, HERO_IMAGE_SIZE, HERO_CLASSES_MAP } from "../constants";
 import { TILE_SIZE } from "./constants";
-import { bufferImage } from "./slices/characterSlice";
+import { bufferImage, teleport } from "./slices/characterSlice";
 import { loadCharacter } from "./slices/statusSlice";
 
 const Character = ({
@@ -16,6 +16,7 @@ const Character = ({
   heroImg,
   loadCharacter,
   bufferImage,
+  teleportMode,
 }) => {
   const ctx = useContext(CanvasConext);
   const imgRef = useRef(null);
@@ -35,7 +36,8 @@ const Character = ({
         HERO_IMAGE_SIZE
       );
 
-      if (tx != x || ty != y) {
+      console.log("Coordinates:", x, y);
+      if (teleportMode) {
         ctx.drawImage(
           document.querySelector(heroImg),
           sx,
@@ -47,11 +49,23 @@ const Character = ({
           HERO_IMAGE_SIZE,
           HERO_IMAGE_SIZE
         );
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(
+          (x - 2) * TILE_SIZE,
+          (y - 2) * TILE_SIZE,
+          5 * TILE_SIZE,
+          5 * TILE_SIZE
+        );
+        ctx.strokeStyle = "black";
       }
+
       loadCharacter(true);
     }
-  }, [ctx, heroClass, heroImg, x, y, loadCharacter]);
+  }, [ctx, heroClass, heroImg, x, y, loadCharacter, teleportMode]);
 
+  if (teleportMode) {
+  }
   return (
     <img
       id="character"

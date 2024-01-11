@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isTeleportBoudary } from "../utils";
+import { isTeleportBoudary, checkMapCollision } from "../utils";
 
 const characterSlice = createSlice({
   name: "character",
@@ -8,6 +8,7 @@ const characterSlice = createSlice({
     y: 6,
     heroClass: "FLAME_SWORDSMAN",
     heroImg: null,
+    teleportImg: null,
     teleportMode: false,
     tx: 6,
     ty: 6,
@@ -15,9 +16,18 @@ const characterSlice = createSlice({
   reducers: {
     move(state, action) {
       const [x, y] = action.payload;
+      console.log(
+        "Teleport Boundary:",
+        !isTeleportBoudary(state.x, state.y, state.tx + x, state.ty + y)
+      );
+      console.log(
+        "Map Collision",
+        !checkMapCollision(state.tx + x, state.ty + y)
+      );
       if (
         state.teleportMode &&
-        !isTeleportBoudary(state.x, state.y, state.tx + x, state.ty + y)
+        !isTeleportBoudary(state.x, state.y, state.tx + x, state.ty + y) &&
+        !checkMapCollision(state.tx + x, state.ty + y)
       ) {
         state.tx += x;
         state.ty += y;
