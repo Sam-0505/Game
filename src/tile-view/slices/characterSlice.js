@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isTeleportBoudary } from "../utils";
 
 const characterSlice = createSlice({
   name: "character",
@@ -14,10 +15,13 @@ const characterSlice = createSlice({
   reducers: {
     move(state, action) {
       const [x, y] = action.payload;
-      if (state.teleportMode) {
+      if (
+        state.teleportMode &&
+        !isTeleportBoudary(state.x, state.y, state.tx + x, state.ty + y)
+      ) {
         state.tx += x;
         state.ty += y;
-      } else {
+      } else if (!state.teleportMode) {
         state.x += x;
         state.y += y;
         state.tx += x;

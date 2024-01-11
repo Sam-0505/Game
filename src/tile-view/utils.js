@@ -17,3 +17,8 @@ export const isMapEdge = (x, y) => {
 export const checkMapCollision = (x, y) => {
   return isMapEdge(x, y) || isSolidTile(x, y);
 };
+
+export const isTeleportBoudary = (x, y, tx, ty) => {
+  console.log(x, y, tx, ty);
+  return tx - x >= 3 || tx - x <= -3 || ty - y >= 3 || ty - y <= -3;
+};
