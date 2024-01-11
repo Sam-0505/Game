@@ -36,7 +36,6 @@ const Character = ({
         HERO_IMAGE_SIZE
       );
 
-      console.log("Coordinates:", x, y);
       if (teleportMode) {
         ctx.drawImage(
           document.querySelector(heroImg),
@@ -52,8 +51,8 @@ const Character = ({
         ctx.strokeStyle = "red";
         ctx.lineWidth = 1;
         ctx.strokeRect(
-          (x - 2) * TILE_SIZE,
-          (y - 2) * TILE_SIZE,
+          (tx - 2) * TILE_SIZE,
+          (ty - 2) * TILE_SIZE,
           5 * TILE_SIZE,
           5 * TILE_SIZE
         );

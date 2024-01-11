@@ -16,35 +16,27 @@ const characterSlice = createSlice({
   reducers: {
     move(state, action) {
       const [x, y] = action.payload;
-      console.log(
-        "Teleport Boundary:",
-        !isTeleportBoudary(state.x, state.y, state.tx + x, state.ty + y)
-      );
-      console.log(
-        "Map Collision",
-        !checkMapCollision(state.tx + x, state.ty + y)
-      );
       if (
         state.teleportMode &&
-        !isTeleportBoudary(state.x, state.y, state.tx + x, state.ty + y) &&
-        !checkMapCollision(state.tx + x, state.ty + y)
+        !isTeleportBoudary(state.tx, state.ty, state.x + x, state.y + y)
       ) {
-        state.tx += x;
-        state.ty += y;
+        state.x += x;
+        state.y += y;
       } else if (!state.teleportMode) {
         state.x += x;
         state.y += y;
         state.tx += x;
         state.ty += y;
       }
+      console.log("States:", state.x, state.y, state.tx, state.ty);
     },
     bufferImage(state, action) {
       state.heroImg = action.payload;
     },
     teleport(state, action) {
       if (state.teleportMode) {
-        state.x = state.tx;
-        state.y = state.ty;
+        state.tx = state.x;
+        state.ty = state.y;
       }
       state.teleportMode = !state.teleportMode;
     },
