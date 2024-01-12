@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { HERO_CLASSES_MAP } from "../constants";
+import TimerComponent from "../tile-view/Timer";
+import "./GameUI.css";
 
 const GameUI = ({ heroClass }) => {
   const { className, portrait } = HERO_CLASSES_MAP[heroClass];
@@ -9,15 +11,7 @@ const GameUI = ({ heroClass }) => {
 
   return (
     <div className="game-ui">
-      <div
-        className="game-ui__avatar"
-        style={{ backgroundPosition: `${sx}px -${sy}px` }}
-      />
-      <div className="gamie-ui__info">
-        <p>Name: KilroggD</p>
-        <p>Class: {className}</p>
-        <p>Health: 100/100</p>
-      </div>
+      <TimerComponent />
     </div>
   );
 };

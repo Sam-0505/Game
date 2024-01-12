@@ -14,6 +14,10 @@ export const MAP_TILE_IMAGES = {
   5: "assets/map/stone_2_brown1.png",
 };
 
+export const MUSIC = {
+  1: "assets/music/teleport_music.wav",
+};
+
 export const LAYERS = [
   [
     [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],

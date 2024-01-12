@@ -7,6 +7,7 @@ import Map from "./Map";
 import CanvasContext from "./canvasContext";
 import Character from "./Character";
 import { MAP_DIMENSIONS, TILE_SIZE, MAP_TILE_IMAGES } from "./constants";
+import TimerComponent from "./Timer";
 
 const TileView = ({ mapImagesLoaded, gameStatus }) => {
   const width = MAP_DIMENSIONS.COLS * TILE_SIZE;

@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import CanvasConext from "./canvasContext";
 import { HEROES_SPRITE, HERO_IMAGE_SIZE, HERO_CLASSES_MAP } from "../constants";
 import { TILE_SIZE } from "./constants";
-import { bufferImage, teleport } from "./slices/characterSlice";
+import { bufferImage } from "./slices/characterSlice";
 import { loadCharacter } from "./slices/statusSlice";
+import TimerComponent from "./Timer";
 
 const Character = ({
   x,
@@ -13,6 +14,7 @@ const Character = ({
   tx,
   ty,
   heroClass,
+  doorClass,
   heroImg,
   loadCharacter,
   bufferImage,
@@ -23,11 +25,12 @@ const Character = ({
 
   useEffect(() => {
     if (heroImg) {
-      const { sx, sy } = HERO_CLASSES_MAP[heroClass].icon;
+      const heroTex = HERO_CLASSES_MAP[heroClass].icon;
+      const doorTex = HERO_CLASSES_MAP[doorClass].icon;
       ctx.drawImage(
         document.querySelector(heroImg),
-        sx,
-        sy,
+        heroTex.sx,
+        heroTex.sy,
         HERO_IMAGE_SIZE - 5,
         HERO_IMAGE_SIZE - 5,
         x * TILE_SIZE,
@@ -39,8 +42,8 @@ const Character = ({
       if (teleportMode) {
         ctx.drawImage(
           document.querySelector(heroImg),
-          sx,
-          sy,
+          doorTex.sx,
+          doorTex.sy,
           HERO_IMAGE_SIZE - 5,
           HERO_IMAGE_SIZE - 5,
           tx * TILE_SIZE,
@@ -63,8 +66,6 @@ const Character = ({
     }
   }, [ctx, heroClass, heroImg, x, y, loadCharacter, teleportMode]);
 
-  if (teleportMode) {
-  }
   return (
     <img
       id="character"

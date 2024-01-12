@@ -9,4 +9,9 @@ export const HERO_CLASSES_MAP = {
     portrait: { sx: 0, sy: 240 },
     className: "Flame swordsman",
   },
+  ARCHER: {
+    icon: { sx: 0, sy: 66 },
+    portrait: { sx: 0, sy: 240 },
+    className: "Archer",
+  },
 };

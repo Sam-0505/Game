@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-
+import { useSound } from "use-sound";
 import CanvasContext from "./canvasContext";
-import { MAP_DIMENSIONS, TILE_SIZE, MOVE_DIRECTIONS } from "./constants";
+import { MAP_DIMENSIONS, TILE_SIZE, MOVE_DIRECTIONS, MUSIC } from "./constants";
 import { move, teleport } from "./slices/characterSlice";
 import { checkMapCollision } from "./utils";
 
@@ -17,6 +17,7 @@ const GameLoop = ({ children, character, move, teleport }) => {
   const loopRef = useRef();
   const width = MAP_DIMENSIONS.COLS * TILE_SIZE;
   const height = MAP_DIMENSIONS.ROWS * TILE_SIZE;
+  const [teleportMusic] = useSound(MUSIC[1]);
 
   const moveCharacter = useCallback(
     (e) => {
@@ -28,8 +29,11 @@ const GameLoop = ({ children, character, move, teleport }) => {
           setIsUpdateRequired(true);
           move([x, y]);
         }
-      } else if (key == " ") {
+      } else if (key === " ") {
         setIsUpdateRequired(true);
+        if (character.teleportMode) {
+          teleportMusic();
+        }
         teleport();
       }
     },

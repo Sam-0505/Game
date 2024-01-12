@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isTeleportBoudary, checkMapCollision } from "../utils";
+import { isTeleportBoudary } from "../utils";
 
 const characterSlice = createSlice({
   name: "character",
@@ -7,8 +7,9 @@ const characterSlice = createSlice({
     x: 6,
     y: 6,
     heroClass: "FLAME_SWORDSMAN",
+    doorClass: "ARCHER",
     heroImg: null,
-    teleportImg: null,
+    doorImg: null,
     teleportMode: false,
     tx: 6,
     ty: 6,
