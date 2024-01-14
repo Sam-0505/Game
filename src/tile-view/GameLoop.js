@@ -1,15 +1,20 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from "react";
 import { connect } from "react-redux";
 import { useSound } from "use-sound";
 import CanvasContext from "./canvasContext";
 import { MAP_DIMENSIONS, TILE_SIZE, MOVE_DIRECTIONS, MUSIC } from "./constants";
-import { move, teleport } from "./slices/characterSlice";
-import { checkMapCollision } from "./utils";
+import { move, teleport, reset } from "./slices/characterSlice";
+import { checkMapCollision, isFinish, isMapEdge } from "./utils";
+import { UserContext } from "./userContext";
+import { useNavigate } from "react-router-dom";
 
-const mapDispatch = { move, teleport };
-const mapStateToProps = ({ character }) => ({ character });
-
-const GameLoop = ({ children, character, move, teleport }) => {
+const GameLoop = ({ children, character, move, teleport, reset }) => {
   const canvasRef = useRef(null);
   const [ctx, setCtx] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
@@ -18,6 +23,9 @@ const GameLoop = ({ children, character, move, teleport }) => {
   const width = MAP_DIMENSIONS.COLS * TILE_SIZE;
   const height = MAP_DIMENSIONS.ROWS * TILE_SIZE;
   const [teleportMusic] = useSound(MUSIC[1]);
+  const { globUser, setGlobUser, countdown, setCountdown } =
+    useContext(UserContext);
+  const nav = useNavigate();
 
   const moveCharacter = useCallback(
     (e) => {
@@ -25,9 +33,26 @@ const GameLoop = ({ children, character, move, teleport }) => {
 
       if (MOVE_DIRECTIONS[key]) {
         const [x, y] = MOVE_DIRECTIONS[key];
-        if (!checkMapCollision(character.x + x, character.y + y)) {
+        console.log(
+          "Collision:",
+          checkMapCollision(character.x + x, character.y + y)
+        );
+        if (
+          (character.teleportMode &&
+            !isMapEdge(character.x + x, character.y + y)) ||
+          !checkMapCollision(character.x + x, character.y + y)
+        ) {
           setIsUpdateRequired(true);
           move([x, y]);
+          if (isFinish(character.x + x, character.y + y)) {
+            reset();
+            // move([-10, -10]);
+            setGlobUser({
+              score: globUser.score + countdown * Math.exp(1),
+              level: globUser.level + 1,
+            });
+            nav("/next-level");
+          }
         }
       } else if (key === " ") {
         setIsUpdateRequired(true);
@@ -37,8 +62,22 @@ const GameLoop = ({ children, character, move, teleport }) => {
         teleport();
       }
     },
-    [move, character.x, character.y, teleport, character.teleportMode]
+    [
+      move,
+      reset,
+      character.x,
+      character.y,
+      teleport,
+      character.teleportMode,
+      setGlobUser,
+    ]
   );
+
+  useEffect(() => {
+    if (countdown == -0) {
+      nav("/game-over");
+    }
+  }, [countdown]);
 
   const tick = useCallback(() => {
     if (isUpdateRequired) {
@@ -67,6 +106,10 @@ const GameLoop = ({ children, character, move, teleport }) => {
     };
   }, [moveCharacter]);
 
+  // useEffect(() => {
+  //   return () => reset();
+  // }, []);
+
   return (
     <CanvasContext.Provider value={ctx}>
       <canvas ref={canvasRef} width={width} height={height} />
@@ -74,5 +117,8 @@ const GameLoop = ({ children, character, move, teleport }) => {
     </CanvasContext.Provider>
   );
 };
+
+const mapDispatch = { move, teleport, reset };
+const mapStateToProps = ({ character }) => ({ character });
 
 export default connect(mapStateToProps, mapDispatch)(GameLoop);

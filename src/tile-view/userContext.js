@@ -3,12 +3,19 @@ import React, { createContext, useState, useEffect } from "react";
 export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
-  const [globUser, setGlobUser] = useState(null);
+  const [globUser, setGlobUser] = useState({ score: 0, level: 1 });
+  const [countdown, setCountdown] = useState(100); // Initial countdown time in seconds
 
-  //console.log(globUser);
+  useEffect(() => {
+    const timer =
+      countdown > 0 && setInterval(() => setCountdown(countdown - 1), 1000);
+    return () => clearInterval(timer);
+  }, [countdown]);
 
   return (
-    <UserContext.Provider value={{ globUser, setGlobUser }}>
+    <UserContext.Provider
+      value={{ globUser, setGlobUser, countdown, setCountdown }}
+    >
       {children}
     </UserContext.Provider>
   );

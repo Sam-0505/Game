@@ -13,6 +13,8 @@ const Character = ({
   y,
   tx,
   ty,
+  sx,
+  sy,
   heroClass,
   doorClass,
   heroImg,
@@ -22,17 +24,14 @@ const Character = ({
 }) => {
   const ctx = useContext(CanvasConext);
   const imgRef = useRef(null);
-
   useEffect(() => {
-    if (heroImg) {
-      const heroTex = HERO_CLASSES_MAP[heroClass].icon;
-      const doorTex = HERO_CLASSES_MAP[doorClass].icon;
+    if (ctx && heroImg) {
       ctx.drawImage(
         document.querySelector(heroImg),
-        heroTex.sx,
-        heroTex.sy,
-        HERO_IMAGE_SIZE - 5,
-        HERO_IMAGE_SIZE - 5,
+        sx,
+        sy,
+        HERO_IMAGE_SIZE,
+        HERO_IMAGE_SIZE,
         x * TILE_SIZE,
         y * TILE_SIZE,
         HERO_IMAGE_SIZE,
@@ -42,10 +41,10 @@ const Character = ({
       if (teleportMode) {
         ctx.drawImage(
           document.querySelector(heroImg),
-          doorTex.sx,
-          doorTex.sy,
-          HERO_IMAGE_SIZE - 5,
-          HERO_IMAGE_SIZE - 5,
+          sx,
+          sy,
+          HERO_IMAGE_SIZE,
+          HERO_IMAGE_SIZE,
           tx * TILE_SIZE,
           ty * TILE_SIZE,
           HERO_IMAGE_SIZE,
@@ -64,7 +63,7 @@ const Character = ({
 
       loadCharacter(true);
     }
-  }, [ctx, heroClass, heroImg, x, y, loadCharacter, teleportMode]);
+  }, [ctx, heroClass, heroImg, x, y, loadCharacter, teleportMode, sx, sy]);
 
   return (
     <img

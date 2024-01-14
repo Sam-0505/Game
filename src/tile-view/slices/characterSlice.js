@@ -1,19 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isTeleportBoudary } from "../utils";
+import { checkMapCollision, isTeleportBoudary } from "../utils";
+
+const initialState = {
+  x: 1,
+  y: 1,
+  heroClass: "FLAME_SWORDSMAN",
+  doorClass: "ARCHER",
+  heroImg: null,
+  doorImg: null,
+  teleportMode: false,
+  tx: 1,
+  ty: 1,
+  sx: 5,
+  sy: 9,
+};
 
 const characterSlice = createSlice({
   name: "character",
-  initialState: {
-    x: 6,
-    y: 6,
-    heroClass: "FLAME_SWORDSMAN",
-    doorClass: "ARCHER",
-    heroImg: null,
-    doorImg: null,
-    teleportMode: false,
-    tx: 6,
-    ty: 6,
-  },
+  initialState,
   reducers: {
     move(state, action) {
       const [x, y] = action.payload;
@@ -28,22 +32,29 @@ const characterSlice = createSlice({
         state.y += y;
         state.tx += x;
         state.ty += y;
+        state.sx = state.sx === 5 ? 75 : 5;
       }
-      console.log("States:", state.x, state.y, state.tx, state.ty);
+      console.log("check state", state);
     },
     bufferImage(state, action) {
       state.heroImg = action.payload;
     },
     teleport(state, action) {
-      if (state.teleportMode) {
+      if (state.teleportMode && !checkMapCollision(state.x, state.y)) {
         state.tx = state.x;
         state.ty = state.y;
+      } else {
+        state.x = state.tx;
+        state.y = state.ty;
       }
       state.teleportMode = !state.teleportMode;
+    },
+    reset(state, action) {
+      state = Object.assign(state, initialState);
     },
   },
 });
 
-export const { move, bufferImage, teleport } = characterSlice.actions;
+export const { move, bufferImage, teleport, reset } = characterSlice.actions;
 
 export default characterSlice.reducer;

@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import { UserContextProvider } from "./tile-view/userContext";
+import GameOver from "./game-over/game-over";
+import NextLevel from "./next-level/next-level";
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
             <Router>
               <Routes>
                 <Route exact path="/" element={<Homepage />}></Route>
-                <Route exact path="/level1" element={<Game />}></Route>
+                <Route exact path="/:levelNumber" element={<Game />}></Route>
+                <Route exact path="/game-over" element={<GameOver />} />
+                <Route exact path="/next-level" element={<NextLevel />} />
               </Routes>
             </Router>
           </UserContextProvider>

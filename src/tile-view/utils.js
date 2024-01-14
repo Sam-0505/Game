@@ -1,8 +1,17 @@
-import { LAYERS, MAP_DIMENSIONS, SOLID_TILES } from "./constants";
+import { LAYERS, MAP_DIMENSIONS, SOLID_TILES, WIN_TILES } from "./constants";
 
 export const isSolidTile = (x, y) => {
   for (let layer of LAYERS) {
     if (SOLID_TILES.includes(layer[y][x])) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export const isFinish = (x, y) => {
+  for (let layer of LAYERS) {
+    if (WIN_TILES.includes(layer[y][x])) {
       return true;
     }
   }
@@ -15,6 +24,7 @@ export const isMapEdge = (x, y) => {
 };
 
 export const checkMapCollision = (x, y) => {
+  console.log("IsMap:",isMapEdge(x,y));
   return isMapEdge(x, y) || isSolidTile(x, y);
 };
 
