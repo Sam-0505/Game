@@ -39,6 +39,9 @@ const characterSlice = createSlice({
     bufferImage(state, action) {
       state.heroImg = action.payload;
     },
+    bufferDoor(state, action) {
+      state.doorImg = action.payload;
+    },
     teleport(state, action) {
       if (state.teleportMode && !checkMapCollision(state.x, state.y)) {
         state.tx = state.x;
@@ -55,6 +58,7 @@ const characterSlice = createSlice({
   },
 });
 
-export const { move, bufferImage, teleport, reset } = characterSlice.actions;
+export const { move, bufferImage, teleport, reset, bufferDoor } =
+  characterSlice.actions;
 
 export default characterSlice.reducer;

@@ -44,9 +44,8 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
         ) {
           setIsUpdateRequired(true);
           move([x, y]);
-          if (isFinish(character.x + x, character.y + y)) {
+          if (!character.teleportMode && isFinish(character.x + x, character.y + y)) {
             reset();
-            // move([-10, -10]);
             setGlobUser({
               score: globUser.score + countdown * Math.exp(1),
               level: globUser.level + 1,
@@ -60,6 +59,14 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
           teleportMusic();
         }
         teleport();
+        if (isFinish(character.x, character.y)) {
+          reset();
+          setGlobUser({
+            score: globUser.score + countdown * Math.exp(1),
+            level: globUser.level + 1,
+          });
+          nav("/next-level");
+        }
       }
     },
     [

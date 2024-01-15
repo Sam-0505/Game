@@ -41,7 +41,7 @@ const Map = ({ loadMap }) => {
       };
 
       drawLayer(LAYERS[0]);
-      //drawLayer(LAYERS[1]);
+      drawLayer(LAYERS[1]);
       loadMap(true);
     }
   }, [COLS, ROWS, ctx, loadMap]);
