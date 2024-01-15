@@ -4,12 +4,15 @@ import { connect } from "react-redux";
 import { LAYERS, MAP_DIMENSIONS, MAP_TILE_SCALE, TILE_SIZE } from "./constants";
 import CanvasContext from "./canvasContext";
 import { loadMap } from "./slices/statusSlice";
+import { UserContext } from "./userContext";
 
 const mapDispatch = { loadMap };
 
 const Map = ({ loadMap }) => {
   const ctx = useContext(CanvasContext);
   const { COLS, ROWS } = MAP_DIMENSIONS;
+
+  const { globUser } = useContext(UserContext);
 
   useEffect(() => {
     if (ctx) {
@@ -40,8 +43,8 @@ const Map = ({ loadMap }) => {
         }
       };
 
-      drawLayer(LAYERS[0]);
-      drawLayer(LAYERS[1]);
+      drawLayer(LAYERS[globUser.level - 1][0]);
+      drawLayer(LAYERS[globUser.level - 1][1]);
       loadMap(true);
     }
   }, [COLS, ROWS, ctx, loadMap]);

@@ -33,18 +33,17 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
 
       if (MOVE_DIRECTIONS[key]) {
         const [x, y] = MOVE_DIRECTIONS[key];
-        console.log(
-          "Collision:",
-          checkMapCollision(character.x + x, character.y + y)
-        );
         if (
           (character.teleportMode &&
             !isMapEdge(character.x + x, character.y + y)) ||
-          !checkMapCollision(character.x + x, character.y + y)
+          !checkMapCollision(character.x + x, character.y + y, globUser.level)
         ) {
           setIsUpdateRequired(true);
           move([x, y]);
-          if (!character.teleportMode && isFinish(character.x + x, character.y + y)) {
+          if (
+            !character.teleportMode &&
+            isFinish(character.x + x, character.y + y, globUser.level)
+          ) {
             reset();
             setGlobUser({
               score: globUser.score + countdown * Math.exp(1),
@@ -58,8 +57,8 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
         if (character.teleportMode) {
           teleportMusic();
         }
-        teleport();
-        if (isFinish(character.x, character.y)) {
+        teleport(globUser.level);
+        if (isFinish(character.x, character.y, globUser.level)) {
           reset();
           setGlobUser({
             score: globUser.score + countdown * Math.exp(1),

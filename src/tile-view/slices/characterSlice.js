@@ -43,7 +43,8 @@ const characterSlice = createSlice({
       state.doorImg = action.payload;
     },
     teleport(state, action) {
-      if (state.teleportMode && !checkMapCollision(state.x, state.y)) {
+      const level = action.payload;
+      if (state.teleportMode && !checkMapCollision(state.x, state.y, level)) {
         state.tx = state.x;
         state.ty = state.y;
       } else {

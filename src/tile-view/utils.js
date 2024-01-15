@@ -1,7 +1,7 @@
 import { LAYERS, MAP_DIMENSIONS, SOLID_TILES, WIN_TILES } from "./constants";
 
-export const isSolidTile = (x, y) => {
-  for (let layer of LAYERS) {
+export const isSolidTile = (x, y, level) => {
+  for (let layer of LAYERS[level - 1]) {
     if (SOLID_TILES.includes(layer[y][x])) {
       return true;
     }
@@ -9,8 +9,8 @@ export const isSolidTile = (x, y) => {
   return false;
 };
 
-export const isFinish = (x, y) => {
-  for (let layer of LAYERS) {
+export const isFinish = (x, y, level) => {
+  for (let layer of LAYERS[level - 1]) {
     if (WIN_TILES.includes(layer[y][x])) {
       return true;
     }
@@ -23,9 +23,9 @@ export const isMapEdge = (x, y) => {
   return x < 0 || x >= COLS || y < 0 || y >= ROWS;
 };
 
-export const checkMapCollision = (x, y) => {
-  console.log("IsMap:",isMapEdge(x,y));
-  return isMapEdge(x, y) || isSolidTile(x, y);
+export const checkMapCollision = (x, y, level) => {
+  console.log("LEvel:", level);
+  return isMapEdge(x, y) || isSolidTile(x, y, level);
 };
 
 export const isTeleportBoudary = (x, y, tx, ty) => {

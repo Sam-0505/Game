@@ -12,8 +12,8 @@ const NextLevel = () => {
       <h1>YOU WON!!!</h1>
       <h2>Score:{globUser.score}</h2>
       <div className="buttons">
-        <Link to="/1">
-          <div className="pixel2" onClick={setCountdown(10)}>
+        <Link to="/2">
+          <div className="pixel2" onClick={setCountdown(100)}>
             <h2>Next Level</h2>
           </div>
         </Link>
