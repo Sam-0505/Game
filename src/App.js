@@ -30,6 +30,7 @@ function App() {
                 <Route exact path="/:levelNumber" element={<Game />}></Route>
                 <Route exact path="/game-over" element={<GameOver />} />
                 <Route exact path="/next-level" element={<NextLevel />} />
+                <Route exact path="/3" element={<Homepage />} />
               </Routes>
             </Router>
           </UserContextProvider>
