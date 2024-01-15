@@ -54,10 +54,13 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
         }
       } else if (key === " ") {
         setIsUpdateRequired(true);
-        if (character.teleportMode) {
+        teleport(globUser.level);
+        if (
+          character.teleportMode &&
+          !checkMapCollision(character.x, character.y, globUser.level)
+        ) {
           teleportMusic();
         }
-        teleport(globUser.level);
         if (isFinish(character.x, character.y, globUser.level)) {
           reset();
           setGlobUser({
@@ -73,6 +76,8 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
       reset,
       character.x,
       character.y,
+      character.tx,
+      character.ty,
       teleport,
       character.teleportMode,
       setGlobUser,
@@ -111,10 +116,6 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
       document.removeEventListener("keypress", moveCharacter);
     };
   }, [moveCharacter]);
-
-  // useEffect(() => {
-  //   return () => reset();
-  // }, []);
 
   return (
     <CanvasContext.Provider value={ctx}>

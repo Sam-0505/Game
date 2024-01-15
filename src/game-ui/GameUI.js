@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { connect } from "react-redux";
 
 import { HERO_CLASSES_MAP } from "../constants";
-import TimerComponent from "../tile-view/Timer";
 import { UserContext } from "../tile-view/userContext";
 import "./GameUI.css";
 
@@ -15,8 +14,6 @@ const GameUI = ({ heroClass }) => {
     <div className="game-ui">
       <h1>Level:{globUser.level}</h1>
       {countdown >= 0 && <p>Time Left: {countdown}</p>}
-      {countdown < 0 && <p>Time Up !!!</p>}
-      <p>Score:{globUser.score}</p>
     </div>
   );
 };
