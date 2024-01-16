@@ -24,7 +24,6 @@ export const isMapEdge = (x, y) => {
 };
 
 export const checkMapCollision = (x, y, level) => {
-  console.log("LEvel:", level);
   return isMapEdge(x, y) || isSolidTile(x, y, level);
 };
 

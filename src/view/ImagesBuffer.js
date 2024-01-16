@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { MAP_TILE_IMAGES } from "./constants";
+import { MAP_TILE_IMAGES } from "../common/constants";
 import { bufferImage } from "./slices/mapImagesSlice";
 
 const mapDispatch = { bufferImage };

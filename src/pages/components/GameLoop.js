@@ -8,10 +8,15 @@ import React, {
 import { connect } from "react-redux";
 import { useSound } from "use-sound";
 import CanvasContext from "./canvasContext";
-import { MAP_DIMENSIONS, TILE_SIZE, MOVE_DIRECTIONS, MUSIC } from "./constants";
-import { move, teleport, reset } from "./slices/characterSlice";
-import { checkMapCollision, isFinish, isMapEdge } from "./utils";
-import { UserContext } from "./userContext";
+import {
+  MAP_DIMENSIONS,
+  TILE_SIZE,
+  MOVE_DIRECTIONS,
+  MUSIC,
+} from "../../common/constants";
+import { move, teleport, reset } from "../../view/slices/characterSlice";
+import { checkMapCollision, isFinish, isMapEdge } from "../../common/utils";
+import { UserContext } from "../userContext";
 import { useNavigate } from "react-router-dom";
 
 const GameLoop = ({ children, character, move, teleport, reset }) => {
@@ -85,7 +90,7 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
   );
 
   useEffect(() => {
-    if (countdown == -0) {
+    if (countdown == 0) {
       nav("/game-over");
     }
   }, [countdown]);

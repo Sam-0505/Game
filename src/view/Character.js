@@ -1,17 +1,15 @@
 import React, { useEffect, useContext, useRef } from "react";
 import { connect } from "react-redux";
 
-import CanvasConext from "./canvasContext";
+import CanvasConext from "../pages/components/canvasContext";
 import {
   HEROES_SPRITE,
   HERO_IMAGE_SIZE,
-  HERO_CLASSES_MAP,
   DOOR_IMAGE,
-} from "../constants";
-import { TILE_SIZE } from "./constants";
+  TILE_SIZE,
+} from "../common/constants";
 import { bufferImage, bufferDoor } from "./slices/characterSlice";
 import { loadCharacter } from "./slices/statusSlice";
-import TimerComponent from "./Timer";
 
 const Character = ({
   x,
@@ -20,8 +18,6 @@ const Character = ({
   ty,
   sx,
   sy,
-  heroClass,
-  doorClass,
   heroImg,
   doorImg,
   loadCharacter,
@@ -78,18 +74,7 @@ const Character = ({
 
       loadCharacter(true);
     }
-  }, [
-    ctx,
-    heroClass,
-    heroImg,
-    doorImg,
-    x,
-    y,
-    loadCharacter,
-    teleportMode,
-    sx,
-    sy,
-  ]);
+  }, [ctx, heroImg, doorImg, x, y, loadCharacter, teleportMode, sx, sy]);
   return (
     <>
       <img

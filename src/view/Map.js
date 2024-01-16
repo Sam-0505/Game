@@ -1,10 +1,15 @@
 import { useContext, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { LAYERS, MAP_DIMENSIONS, MAP_TILE_SCALE, TILE_SIZE } from "./constants";
-import CanvasContext from "./canvasContext";
+import {
+  LAYERS,
+  MAP_DIMENSIONS,
+  MAP_TILE_SCALE,
+  TILE_SIZE,
+} from "../common/constants";
+import CanvasContext from "../pages/components/canvasContext";
 import { loadMap } from "./slices/statusSlice";
-import { UserContext } from "./userContext";
+import { UserContext } from "../pages/userContext";
 
 const mapDispatch = { loadMap };
 

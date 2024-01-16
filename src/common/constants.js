@@ -1,3 +1,8 @@
+export const HEROES_SPRITE = "assets/heroes/Doraemon1.png";
+export const DOOR_IMAGE = "assets/heroes/door.png";
+
+export const HERO_IMAGE_SIZE = 32;
+
 export const TILE_SIZE = 32;
 
 export const MAP_DIMENSIONS = {

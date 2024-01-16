@@ -1,25 +1,22 @@
 import React from "react";
 
-import GameUI from "./game-ui/GameUI";
-import GameLoop from "./tile-view/GameLoop";
-import TileView from "./tile-view/TileView";
-import Game from "./tile-view/Game";
-import Homepage from "./homepage/homepage";
+import Game from "./pages/components/Game";
+import Homepage from "./pages/homepage";
 import {
   BrowserRouter as Router,
-  Link,
   Route,
-  Switch,
   Routes,
-  Redirect,
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import { UserContextProvider } from "./tile-view/userContext";
-import GameOver from "./game-over/game-over";
-import NextLevel from "./next-level/next-level";
+import { UserContextProvider } from "./pages/userContext";
+import GameOver from "./pages/game-over";
+import NextLevel from "./pages/next-level";
+import { LAYERS } from "./common/constants";
+import WinPage from "./pages/winpage";
 
 function App() {
+  const levelLen = `/${LAYERS.length + 1}`;
   return (
     <>
       <header></header>
@@ -32,7 +29,7 @@ function App() {
                 <Route exact path="/:levelNumber" element={<Game />}></Route>
                 <Route exact path="/game-over" element={<GameOver />} />
                 <Route exact path="/next-level" element={<NextLevel />} />
-                <Route exact path="/3" element={<Navigate replace to="/" />} />
+                <Route exact path={levelLen} element={<WinPage />} />
               </Routes>
             </Router>
           </UserContextProvider>

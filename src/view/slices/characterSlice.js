@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { checkMapCollision, isTeleportBoudary } from "../utils";
+import { checkMapCollision, isTeleportBoudary } from "../../common/utils";
 
 const initialState = {
   x: 1,

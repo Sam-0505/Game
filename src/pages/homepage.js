@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./homepage.css";
-import { UserContext } from "../tile-view/userContext";
-import { reset } from "../tile-view/slices/characterSlice";
+import { UserContext } from "./userContext";
+import { reset } from "../view/slices/characterSlice";
 import { connect } from "react-redux";
 
 const Home = () => {

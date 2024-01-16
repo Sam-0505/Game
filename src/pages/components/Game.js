@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import Countdown from "react-countdown";
+import React from "react";
 import GameLoop from "./GameLoop";
-import GameUI from "../game-ui/GameUI";
+import GameUI from "./GameUI";
 import TileView from "./TileView";
-import { UserContext } from "./userContext";
 
 const Game = () => {
   return (

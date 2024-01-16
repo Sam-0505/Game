@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { connect } from "react-redux";
-
-import Grid from "./Grid";
-import ImagesBuffer from "./ImagesBuffer";
-import Map from "./Map";
+import ImagesBuffer from "../../view/ImagesBuffer";
+import Map from "../../view/Map";
 import CanvasContext from "./canvasContext";
-import Character from "./Character";
-import { MAP_DIMENSIONS, TILE_SIZE, MAP_TILE_IMAGES } from "./constants";
-import TimerComponent from "./Timer";
+import Character from "../../view/Character";
+import {
+  MAP_DIMENSIONS,
+  TILE_SIZE,
+  MAP_TILE_IMAGES,
+} from "../../common/constants";
 
 const TileView = ({ mapImagesLoaded, gameStatus }) => {
   const width = MAP_DIMENSIONS.COLS * TILE_SIZE;
@@ -20,15 +21,14 @@ const TileView = ({ mapImagesLoaded, gameStatus }) => {
     };
   }, [ctx]);
 
+  console.log("Loaded:", gameStatus.mapLoaded);
   return (
     <>
       <ImagesBuffer />
       {Object.keys(mapImagesLoaded).length ===
         Object.keys(MAP_TILE_IMAGES).length && (
         <>
-          <Grid width={width} height={height}>
-            <Map />
-          </Grid>
+          <Map />
         </>
       )}
       {gameStatus.mapLoaded && <Character />}

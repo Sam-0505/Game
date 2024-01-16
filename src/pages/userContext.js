@@ -4,7 +4,7 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [globUser, setGlobUser] = useState({ score: 0, level: 1 });
-  const [countdown, setCountdown] = useState(100); // Initial countdown time in seconds
+  const [countdown, setCountdown] = useState(30); // Initial countdown time in seconds
 
   useEffect(() => {
     const timer =
