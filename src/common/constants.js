@@ -5,7 +5,7 @@ export const HERO_IMAGE_SIZE = 32;
 
 export const TILE_SIZE = 32;
 
-export const COUNTDOWN = 10;
+export const COUNTDOWN = 30;
 
 export const MAP_DIMENSIONS = {
   COLS: 12,
