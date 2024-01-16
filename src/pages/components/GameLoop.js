@@ -54,7 +54,8 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
               score: globUser.score + countdown * Math.exp(1),
               level: globUser.level + 1,
             });
-            nav("/next-level");
+            const path = `/next-level/${globUser.level + 1}`;
+            nav(path);
           }
         }
       } else if (key === " ") {
@@ -72,7 +73,9 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
             score: globUser.score + countdown * Math.exp(1),
             level: globUser.level + 1,
           });
-          nav("/next-level");
+
+          const path = `/next-level/${globUser.level + 1}`;
+          nav(path);
         }
       }
     },

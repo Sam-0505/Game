@@ -34,7 +34,6 @@ const characterSlice = createSlice({
         state.ty += y;
         state.sx = state.sx === 5 ? 75 : 5;
       }
-      console.log("check state", state);
     },
     bufferImage(state, action) {
       state.heroImg = action.payload;

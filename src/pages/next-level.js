@@ -20,11 +20,13 @@ const NextLevel = () => {
           </div>
         </Link>
       </div>
-      <Link to="/">
-        <div className="pixel2">
-          <p>Main Menu</p>
-        </div>
-      </Link>
+      <div className="buttons">
+        <Link to="/">
+          <div className="pixel2">
+            <h2>Main Menu</h2>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -16,7 +16,7 @@ import { LAYERS } from "./common/constants";
 import WinPage from "./pages/winpage";
 
 function App() {
-  const levelLen = `/${LAYERS.length + 1}`;
+  const levelLen = `/next-level/${LAYERS.length + 1}`;
   return (
     <>
       <header></header>
@@ -28,7 +28,11 @@ function App() {
                 <Route exact path="/" element={<Homepage />}></Route>
                 <Route exact path="/:levelNumber" element={<Game />}></Route>
                 <Route exact path="/game-over" element={<GameOver />} />
-                <Route exact path="/next-level" element={<NextLevel />} />
+                <Route
+                  exact
+                  path="/next-level/:levelNumber"
+                  element={<NextLevel />}
+                />
                 <Route exact path={levelLen} element={<WinPage />} />
               </Routes>
             </Router>

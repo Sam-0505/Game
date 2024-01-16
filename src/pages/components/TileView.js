@@ -21,7 +21,6 @@ const TileView = ({ mapImagesLoaded, gameStatus }) => {
     };
   }, [ctx]);
 
-  console.log("Loaded:", gameStatus.mapLoaded);
   return (
     <>
       <ImagesBuffer />
