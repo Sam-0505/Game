@@ -9,6 +9,7 @@ import {
   TILE_SIZE,
   MAP_TILE_IMAGES,
 } from "../../common/constants";
+import Grid from "../../view/grid";
 
 const TileView = ({ mapImagesLoaded, gameStatus }) => {
   const width = MAP_DIMENSIONS.COLS * TILE_SIZE;
@@ -27,7 +28,9 @@ const TileView = ({ mapImagesLoaded, gameStatus }) => {
       {Object.keys(mapImagesLoaded).length ===
         Object.keys(MAP_TILE_IMAGES).length && (
         <>
-          <Map />
+          <Grid width={width} height={height}>
+            <Map />
+          </Grid>
         </>
       )}
       {gameStatus.mapLoaded && <Character />}

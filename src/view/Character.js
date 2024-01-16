@@ -49,7 +49,7 @@ const Character = ({
           TILE_SIZE,
           TILE_SIZE
         );
-        ctx.strokeStyle = "red";
+        ctx.strokeStyle = "cyan";
         ctx.lineWidth = 1;
         ctx.strokeRect(
           (tx - 2) * TILE_SIZE,

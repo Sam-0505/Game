@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
+import { COUNTDOWN } from "../common/constants";
 
 export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [globUser, setGlobUser] = useState({ score: 0, level: 1 });
-  const [countdown, setCountdown] = useState(30); // Initial countdown time in seconds
+  const [countdown, setCountdown] = useState(COUNTDOWN); // Initial countdown time in seconds
 
   useEffect(() => {
     const timer =

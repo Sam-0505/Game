@@ -1,13 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { UserContext } from "./userContext";
+import { COUNTDOWN } from "../common/constants";
 
 const NextLevel = () => {
   const { globUser, setGlobUser, countdown, setCountdown } =
     useContext(UserContext);
 
   const nextLevel = `/${globUser.level}`;
+
+  useEffect(() => {
+    localStorage.setItem("level", globUser.level);
+  }, []);
+
   return (
     <div className="homepage">
       <h1>YOU WON!!!</h1>
@@ -15,7 +21,7 @@ const NextLevel = () => {
 
       <div className="buttons">
         <Link to={nextLevel}>
-          <div className="pixel2" onClick={setCountdown(30)}>
+          <div className="pixel2" onClick={setCountdown(COUNTDOWN)}>
             <h2>Next Level</h2>
           </div>
         </Link>

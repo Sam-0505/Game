@@ -14,6 +14,7 @@ import GameOver from "./pages/game-over";
 import NextLevel from "./pages/next-level";
 import { LAYERS } from "./common/constants";
 import WinPage from "./pages/winpage";
+import Protected from "./common/Protected";
 
 function App() {
   const levelLen = `/next-level/${LAYERS.length + 1}`;
@@ -26,7 +27,11 @@ function App() {
             <Router>
               <Routes>
                 <Route exact path="/" element={<Homepage />}></Route>
-                <Route exact path="/:levelNumber" element={<Game />}></Route>
+                <Route
+                  exact
+                  path="/:levelNumber"
+                  element={<Protected Component={Game} />}
+                ></Route>
                 <Route exact path="/game-over" element={<GameOver />} />
                 <Route
                   exact

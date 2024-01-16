@@ -94,6 +94,7 @@ const GameLoop = ({ children, character, move, teleport, reset }) => {
 
   useEffect(() => {
     if (countdown == 0) {
+      reset();
       nav("/game-over");
     }
   }, [countdown]);
